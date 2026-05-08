@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="🚁 智能无人机集群控制系统 | ADRC控制 | 12个MCP服务 | MATLAB/Python | IEEE论文 | 大一技术成长记录">
+    <meta name="keywords" content="ADRC,无人机,集群控制,MATLAB,Python,MCP,控制工程,AI">
+    <meta name="author" content="ycx666994">
+    <title>ycx666994 | 技术博客 - 控制工程 · AI · 机器人</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        .badge-container {
+            margin-top: 15px;
+        }
+        .badge {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 5px;
+        }
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .project-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+        .project-tags {
+            margin: 15px 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        .metrics {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        .btn-github {
+            background: #2c3e50;
+        }
+        .btn-github:hover {
+            background: #1a252f;
+        }
+        .section-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin: 30px 0 20px 0;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        .post-list {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .post-item {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .post-item:last-child {
+            border-bottom: none;
+        }
+        .post-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2980b9;
+            text-decoration: none;
+        }
+        .post-title:hover {
+            text-decoration: underline;
+        }
+        .post-date {
+            color: #95a5a6;
+            font-size: 0.85em;
+            margin-left: 15px;
+        }
+        .about-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚁 技术博客</h1>
+        <div class="subtitle">控制工程 · AI应用 · 机器人技术</div>
+        <div class="badge-container">
+            <span class="badge">ADRC控制</span>
+            <span class="badge">无人机集群</span>
+            <span class="badge">MCP协议</span>
+            <span class="badge">AI辅助开发</span>
+        </div>
+    </div>
+
+    <!-- 精选项目 -->
+    <h2 class="section-title">📌 精选项目</h2>
+    <div class="project-card">
+        <div class="project-title">智能无人机集群协同控制系统</div>
+        <p>基于ADRC（自抗扰控制）的四旋翼无人机集群协同控制系统。实现从单机精确控制到多机编队的完整技术栈。</p>
+        
+        <div class="project-tags">
+            <span class="tag">MATLAB</span>
+            <span class="tag">Python</span>
+            <span class="tag">ADRC</span>
+            <span class="tag">MCP</span>
+            <span class="tag">AI辅助开发</span>
+        </div>
+        
+        <div class="metrics">
+            📊 核心指标：超调 0.04% | 稳态误差 0.0001m | 编队误差 0.158m | 调节时间 0.645s
+        </div>
+        
+        <div>
+            <a href="https://github.com/ycx666994/quadrotor-cluster-control" class="btn btn-github" target="_blank">📦 GitHub 仓库</a>
+            <a href="quadrotor-project.html" class="btn">📖 项目详情 →</a>
+        </div>
+    </div>
+
+    <!-- 技术文章 -->
+    <h2 class="section-title">📝 技术文章</h2>
+    <div class="post-list">
+        <div class="post-item">
+            <a href="posts/adrc-principle.html" class="post-title">ADRC控制原理详解</a>
+            <span class="post-date">2026-05-08</span>
+            <p style="margin-top: 8px; color: #666;">自抗扰控制(ADRC)的核心思想、组成部分、带宽参数化详解</p>
+        </div>
+        <div class="post-item">
+            <a href="posts/mcp-toolchain.html" class="post-title">MCP协议：让AI与任意工具协同</a>
+            <span class="post-date">2026-05-08</span>
+            <p style="margin-top: 8px; color: #666;">Model Context Protocol 协议介绍与12个MCP服务搭建实践</p>
+        </div>
+        <div class="post-item">
+            <a href="posts/build-12-mcp.html" class="post-title">从零搭建12个MCP服务</a>
+            <span class="post-date">2026-05-08</span>
+            <p style="margin-top: 8px; color: #666;">MATLAB、Python、Simulink、LaTeX、Git等MCP服务完整配置指南</p>
+        </div>
+        <div class="post-item">
+            <a href="posts/quadrotor-modeling.html" class="post-title">四旋翼无人机建模与仿真</a>
+            <span class="post-date">2026-05-08</span>
+            <p style="margin-top: 8px; color: #666;">6DOF非线性动力学模型建立与ADRC控制器设计</p>
+        </div>
+    </div>
+
+    <!-- 关于我 -->
+    <div class="about-card">
+        <h3>🎓 关于我</h3>
+        <p style="margin: 15px 0;">🏫 大一学生 | 控制工程 / AI应用方向</p>
+        <p style="margin: 10px 0;">📚 正在学习：控制理论、机器人学、深度学习</p>
+        <p style="margin: 10px 0;">💡 热爱用AI辅助科研，探索技术前沿，从实践中成长</p>
+        <p style="margin: 10px 0;">🎯 目标：成为一名优秀的控制算法工程师</p>
+        <div style="margin-top: 20px;">
+            <a href="https://github.com/ycx666994" style="margin: 0 10px;" target="_blank">GitHub</a>
+            <a href="mailto:你的邮箱" style="margin: 0 10px;">邮箱</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 ycx666994 | 基于 GitHub Pages 搭建</p>
+    </div>
+</body>
+</html>

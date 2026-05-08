@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>无人机集群项目详情 | ycx666994</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; border-left: 4px solid #3498db; padding-left: 15px; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #3498db; }
+        .metrics-card { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #3498db; color: white; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 8px; overflow-x: auto; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .btn { display: inline-block; background: #3498db; color: white; padding: 10px 20px; border-radius: 8px; margin-top: 10px; margin-right: 10px; }
+        .btn-github { background: #2c3e50; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← 返回首页</a>
+
+    <h1>🚁 智能无人机集群协同控制系统</h1>
+    <p><strong>基于ADRC（自抗扰控制）的四旋翼无人机集群协同控制</strong></p>
+
+    <div class="metrics-card">
+        <h3>📊 项目概览</h3>
+        <ul>
+            <li>📝 MATLAB代码：431行</li>
+            <li>🐍 Python代码：471行</li>
+            <li>📄 论文：IEEE格式完整论文</li>
+            <li>🖼️ 结果图：5张专业图表</li>
+            <li>🔧 工具链：12个MCP服务协同</li>
+            <li>⚡ 开发效率：提升10倍（AI辅助）</li>
+        </ul>
+    </div>
+
+    <h2>📈 性能指标</h2>
+    <table>
+        <tr><th>指标</th><th>数值</th><th>说明</th></tr>
+        <tr><td>位置稳态误差</td><td>0.0001m</td><td>近乎完美跟踪</td></tr>
+        <tr><td>超调量</td><td>0.04%</td><td>极低超调</td></tr>
+        <tr><td>调节时间</td><td>0.645s</td><td>快速响应</td></tr>
+        <tr><td>编队保持误差</td><td>0.158m RMS</td><td>高精度编队</td></tr>
+    </table>
+
+    <h2>🎯 技术架构</h2>
+    <ul>
+        <li><strong>ADRC控制器</strong>：三阶扩张状态观测器(ESO)，带宽参数化设计</li>
+        <li><strong>编队算法</strong>：领导者-跟随者策略，三种队形变换</li>
+        <li><strong>可视化</strong>：3D轨迹、编队误差、队形快照</li>
+        <li><strong>AI辅助</strong>：Claude Code + DeepSeek，效率提升10倍</li>
+    </ul>
+
+    <h2>💻 核心代码示例 (ADRC控制器)</h2>
+    <pre><code>function u = adrc_control(y, y_ref, dt)
+    persistent z1 z2 z3
+    % ESO: 扩张状态观测器
+    e = z1 - y;
+    z1 = z1 + dt * (z2 - beta01 * e);
+    z2 = z2 + dt * (z3 - beta02 * fal(e,0.5,delta) + b0 * u);
+    z3 = z3 + dt * (-beta03 * fal(e,0.25,delta));
+    % 控制律
+    u = (k1*(y_ref - z1) - k2*z2 - z3) / b0;
+end</code></pre>
+
+    <h2>🔧 使用的12个MCP服务</h2>
+    <ul>
+        <li><strong>MATLAB MCP</strong> - 无人机建模、ADRC控制</li>
+        <li><strong>Python MCP</strong> - 编队算法、3D可视化</li>
+        <li><strong>Simulink MCP</strong> - 模型生成</li>
+        <li><strong>LaTeX MCP</strong> - 论文生成</li>
+        <li><strong>Git-Doc MCP</strong> - 实验记录</li>
+        <li><strong>Jupyter MCP</strong> - 研究报告</li>
+        <li><strong>RAG MCP</strong> - 知识检索</li>
+        <li><strong>MLflow MCP</strong> - 实验追踪</li>
+        <li><strong>ROS2 MCP</strong> - 机器人接口</li>
+        <li><strong>DAQ MCP</strong> - 数据采集</li>
+        <li><strong>HIL MCP</strong> - 硬件在环</li>
+        <li><strong>Overleaf MCP</strong> - 在线协作</li>
+    </ul>
+
+    <div>
+        <a href="https://github.com/ycx666994/quadrotor-cluster-control" class="btn btn-github" target="_blank">📦 GitHub 仓库</a>
+        <a href="paper.pdf" class="btn" target="_blank">📄 下载论文 PDF</a>
+    </div>
+</body>
+</html>

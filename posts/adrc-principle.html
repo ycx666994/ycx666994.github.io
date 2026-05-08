@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>ADRC控制原理详解</title>
+<style>body{max-width:800px;margin:0 auto;padding:20px;font-family:'Segoe UI',Arial;line-height:1.6}</style>
+</head>
+<body>
+<a href="../index.html">← 返回首页</a>
+<h1>自抗扰控制(ADRC)原理详解</h1>
+<p><strong>2026-05-08</strong> | 阅读时间：5分钟</p>
+
+<h2>什么是ADRC？</h2>
+<p>ADRC（Active Disturbance Rejection Control，自抗扰控制）是由韩京清研究员提出的一种不依赖精确模型的控制方法。</p>
+
+<h2>核心思想</h2>
+<p>将系统内部不确定性和外部扰动视为"总扰动"，通过扩张状态观测器(ESO)实时估计并补偿。</p>
+
+<h2>ADRC的三大组成部分</h2>
+<ul>
+    <li><strong>跟踪微分器(TD)</strong>：安排过渡过程，提取微分信号</li>
+    <li><strong>扩张状态观测器(ESO)</strong>：估计状态和总扰动</li>
+    <li><strong>非线性状态误差反馈(NLSEF)</strong>：计算控制量</li>
+</ul>
+
+<h2>带宽参数化</h2>
+<ul>
+    <li>ωo (ESO带宽)：决定扰动估计速度，越大估计越快但噪声敏感</li>
+    <li>ωc (控制带宽)：决定响应速度</li>
+    <li>经验关系：ωc = (1/3 ~ 1/5) ωo</li>
+</ul>
+
+<h2>本项目中ADRC的应用</h2>
+<p>为本项目中的四旋翼无人机设计了独立的ADRC控制器，实现了0.04%的超调和0.0001m的稳态误差。</p>
+
+<p><a href="../quadrotor-project.html">← 返回项目详情</a></p>
+</body>
+</html>
