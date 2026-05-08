@@ -4,94 +4,262 @@
 <meta charset="UTF-8">
 <title>四旋翼无人机建模与仿真</title>
 <style>
-    body{max-width:900px;margin:0 auto;padding:20px;font-family:'Segoe UI',Arial;line-height:1.6}
-    pre{background:#1e1e1e;color:#d4d4d4;padding:16px;border-radius:8px;overflow-x:auto;font-family:Consolas,monospace;font-size:14px}
-    code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-family:Consolas,monospace}
-    pre code{background:transparent;padding:0}
-    table{border-collapse:collapse;width:100%;margin:20px 0}
-    th,td{border:1px solid #ddd;padding:10px;text-align:left}
-    th{background:#3498db;color:white}
-    h1{color:#2c3e50;border-bottom:3px solid #3498db;padding-bottom:10px}
-    h2{color:#34495e;border-left:4px solid #3498db;padding-left:15px;margin-top:30px}
-    h3{color:#555;margin-top:20px}
-    a{color:#3498db;text-decoration:none}
-    a:hover{text-decoration:underline}
-    .back-link{display:inline-block;margin-bottom:20px}
-    .date{color:#7f8c8d;font-size:14px;margin-bottom:20px}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background: #ffffff;
+        line-height: 1.7;
+        color: #1a1a2e;
+    }
+    .back-link {
+        display: inline-block;
+        margin-bottom: 30px;
+        color: #0066cc;
+        text-decoration: none;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+    h1 {
+        font-size: 32px;
+        color: #1a1a2e;
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 12px;
+        margin-bottom: 15px;
+    }
+    .date {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    h2 {
+        font-size: 24px;
+        color: #1a1a2e;
+        margin: 35px 0 20px 0;
+        padding-left: 12px;
+        border-left: 4px solid #0066cc;
+    }
+    h3 {
+        font-size: 18px;
+        color: #333;
+        margin: 25px 0 12px 0;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: #f8f9fa;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background: #0066cc;
+        color: white;
+        font-weight: 600;
+    }
+    tr:hover {
+        background: #e9ecef;
+    }
+    ul, ol {
+        margin: 15px 0 15px 30px;
+    }
+    li {
+        margin: 8px 0;
+    }
+    pre {
+        background: #f4f4f4;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        overflow-x: auto;
+        margin: 20px 0;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    code {
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        background: #f4f4f4;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 13px;
+        color: #d14;
+    }
+    pre code {
+        background: transparent;
+        padding: 0;
+        color: #333;
+        font-size: 13px;
+    }
+    .formula {
+        background: #f8f9fa;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-family: 'Consolas', monospace;
+        font-size: 14px;
+        margin: 15px 0;
+        overflow-x: auto;
+        color: #1a1a2e;
+    }
+    .metric {
+        display: inline-block;
+        background: #e8f4fd;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin: 5px 8px 5px 0;
+        font-size: 14px;
+    }
+    .btn {
+        display: inline-block;
+        background: #0066cc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-top: 20px;
+        margin-right: 15px;
+        font-weight: 500;
+    }
+    .btn:hover {
+        background: #0052a3;
+    }
+    .btn-github {
+        background: #24292e;
+    }
+    .btn-github:hover {
+        background: #1a1e22;
+    }
+    hr {
+        margin: 40px 0;
+        border: none;
+        border-top: 1px solid #eee;
+    }
+    @media (max-width: 768px) {
+        body {
+            padding: 20px 15px;
+        }
+        h1 {
+            font-size: 26px;
+        }
+        h2 {
+            font-size: 20px;
+        }
+        table {
+            font-size: 12px;
+        }
+        th, td {
+            padding: 8px 10px;
+        }
+        pre {
+            font-size: 11px;
+            padding: 12px;
+        }
+        code {
+            font-size: 11px;
+        }
+    }
 </style>
 </head>
 <body>
 <a href="../index.html" class="back-link">← 返回首页</a>
+
 <h1>🚁 四旋翼无人机建模与仿真</h1>
-<div class="date">2026-05-08 | 阅读时间：6分钟 | 难度：中高级</div>
+<div class="date">📅 2026-05-08 | ⏱️ 阅读时间：约6分钟 | 📊 难度：中高级</div>
 
 <h2>📐 四旋翼无人机动力学模型</h2>
-<p>四旋翼无人机是一个6自由度（6DOF）系统，包含3个位置自由度（x,y,z）和3个姿态自由度（φ,θ,ψ）。</p>
+<p>四旋翼无人机是一个<b>6自由度（6DOF）</b>系统，包含3个位置自由度（x, y, z）和3个姿态自由度（φ, θ, ψ）。</p>
 
-<h3>物理参数</h3>
+<h3>📊 物理参数</h3>
 <table>
-    <tr><th>参数</th><th>符号</th><th>数值</th><th>单位</th></tr>
-    <tr><td>质量</td><td>m</td><td>1.5</td><td>kg</td></tr>
-    <tr><td>臂长</td><td>L</td><td>0.25</td><td>m</td></tr>
-    <tr><td>惯性矩 X</td><td>Ix</td><td>0.0023</td><td>kg·m²</td></tr>
-    <tr><td>惯性矩 Y</td><td>Iy</td><td>0.0023</td><td>kg·m²</td></tr>
-    <tr><td>惯性矩 Z</td><td>Iz</td><td>0.0040</td><td>kg·m²</td></tr>
+    <thead>
+        <tr><th>参数</th><th>符号</th><th>数值</th><th>单位</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>质量</td><td>m</td><td>1.5</td><td>kg</td></tr>
+        <tr><td>臂长</td><td>L</td><td>0.25</td><td>m</td></tr>
+        <tr><td>惯性矩 X</td><td>Ix</td><td>0.0023</td><td>kg·m²</td></tr>
+        <tr><td>惯性矩 Y</td><td>Iy</td><td>0.0023</td><td>kg·m²</td></tr>
+        <tr><td>惯性矩 Z</td><td>Iz</td><td>0.0040</td><td>kg·m²</td></tr>
+    </tbody>
 </table>
 
-<h3>动力学方程</h3>
-<pre><code>ddot_x = (cosφ sinθ cosψ + sinφ sinψ) * F_total / m
-ddot_y = (cosφ sinθ sinψ - sinφ cosψ) * F_total / m
-ddot_z = (cosφ cosθ) * F_total / m - g
-
-ddot_φ = (Iy - Iz)/Ix * dot_θ * dot_ψ + τ_φ/Ix
-ddot_θ = (Iz - Ix)/Iy * dot_φ * dot_ψ + τ_θ/Iy
-ddot_ψ = (Ix - Iy)/Iz * dot_φ * dot_θ + τ_ψ/Iz</code></pre>
+<h3>📝 动力学方程</h3>
+<div class="formula">
+    <b>位置动力学：</b><br>
+    ddot_x = (cosφ·sinθ·cosψ + sinφ·sinψ) × F_total / m<br>
+    ddot_y = (cosφ·sinθ·sinψ - sinφ·cosψ) × F_total / m<br>
+    ddot_z = (cosφ·cosθ) × F_total / m - g<br><br>
+    <b>姿态动力学：</b><br>
+    ddot_φ = (Iy - Iz)/Ix × dot_θ × dot_ψ + τ_φ / Ix<br>
+    ddot_θ = (Iz - Ix)/Iy × dot_φ × dot_ψ + τ_θ / Iy<br>
+    ddot_ψ = (Ix - Iy)/Iz × dot_φ × dot_θ + τ_ψ / Iz
+</div>
 
 <h2>🎯 ADRC控制器设计</h2>
 <p>ADRC（自抗扰控制）由三部分组成：</p>
 <ul>
-    <li><strong>跟踪微分器(TD)</strong> - 安排过渡过程，提取微分信号</li>
-    <li><strong>扩张状态观测器(ESO)</strong> - 估计状态和总扰动</li>
-    <li><strong>非线性状态误差反馈(NLSEF)</strong> - 计算控制量</li>
+    <li><b>跟踪微分器（TD）</b> —— 安排过渡过程，提取微分信号</li>
+    <li><b>扩张状态观测器（ESO）</b> —— 估计状态和总扰动</li>
+    <li><b>非线性状态误差反馈（NLSEF）</b> —— 计算控制量</li>
 </ul>
 
-<h3>ESO核心代码（MATLAB）</h3>
+<h3>💻 ESO核心代码（MATLAB）</h3>
 <pre><code>function u = adrc_control(y, y_ref, dt)
     persistent z1 z2 z3
+    
     % 观测器误差
     e = z1 - y;
-    % 状态更新
+    
+    % 扩张状态观测器更新
     z1 = z1 + dt * (z2 - beta01 * e);
-    z2 = z2 + dt * (z3 - beta02 * fal(e,0.5,delta) + b0 * u);
-    z3 = z3 + dt * (-beta03 * fal(e,0.25,delta));
-    % 非线性函数 fal
-    function f = fal(e, alpha, delta)
-        if abs(e) > delta
-            f = abs(e)^alpha * sign(e);
-        else
-            f = e / (delta^(1-alpha));
-        end
-    end
+    z2 = z2 + dt * (z3 - beta02 * fal(e, 0.5, delta) + b0 * u);
+    z3 = z3 + dt * (-beta03 * fal(e, 0.25, delta));
+    
     % 控制律
-    u = (k1*(y_ref - z1) - k2*z2 - z3) / b0;
+    u = (k1 * (y_ref - z1) - k2 * z2 - z3) / b0;
+end
+
+function f = fal(e, alpha, delta)
+    if abs(e) > delta
+        f = abs(e)^alpha * sign(e);
+    else
+        f = e / (delta^(1-alpha));
+    end
 end</code></pre>
 
 <h2>📊 仿真结果</h2>
-<ul>
-    <li>✅ 超调量：<strong>0.04%</strong></li>
-    <li>✅ 稳态误差：<strong>0.0001m</strong></li>
-    <li>✅ 调节时间：<strong>0.645s</strong></li>
-    <li>✅ 编队误差：<strong>0.158m RMS</strong></li>
-</ul>
+<p style="margin-bottom: 10px;">🎉 <b>性能指标：</b></p>
+<div>
+    <span class="metric">✅ 超调量：0.04%</span>
+    <span class="metric">✅ 稳态误差：0.0001m</span>
+    <span class="metric">✅ 调节时间：0.645s</span>
+    <span class="metric">✅ 编队误差：0.158m RMS</span>
+</div>
 
 <h2>📁 完整代码</h2>
-<p>查看GitHub仓库获取完整MATLAB代码：</p>
+<p>查看 <a href="https://github.com/ycx666994/quadrotor-cluster-control" target="_blank">GitHub仓库</a> 获取完整 MATLAB 代码：</p>
 <pre><code>cd scripts
 run quadrotor_adrc_v2.m</code></pre>
 
+<hr>
+
 <p>
-    <a href="../quadrotor-project.html">← 返回项目详情</a> | 
-    <a href="https://github.com/ycx666994/quadrotor-cluster-control" target="_blank">📦 GitHub仓库</a>
+    <a href="../quadrotor-project.html" class="btn">📖 返回项目详情</a>
+    <a href="https://github.com/ycx666994/quadrotor-cluster-control" class="btn btn-github" target="_blank">📦 GitHub仓库</a>
 </p>
+
 </body>
 </html>

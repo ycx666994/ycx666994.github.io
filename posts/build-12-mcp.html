@@ -4,27 +4,168 @@
 <meta charset="UTF-8">
 <title>从零搭建12个MCP服务</title>
 <style>
-    body{max-width:900px;margin:0 auto;padding:20px;font-family:'Segoe UI',Arial;line-height:1.6}
-    pre{background:#1e1e1e;color:#d4d4d4;padding:16px;border-radius:8px;overflow-x:auto;font-family:Consolas,monospace;font-size:14px}
-    pre code{background:transparent;padding:0}
-    code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-family:Consolas,monospace}
-    h1{color:#2c3e50;border-bottom:3px solid #3498db;padding-bottom:10px}
-    h2{color:#34495e;border-left:4px solid #3498db;padding-left:15px;margin-top:30px}
-    a{color:#3498db;text-decoration:none}
-    a:hover{text-decoration:underline}
-    .back-link{display:inline-block;margin-bottom:20px}
-    .date{color:#7f8c8d;font-size:14px;margin-bottom:20px}
-    .mcp-list{columns:2;column-gap:30px;background:#f8f9fa;padding:20px;border-radius:10px}
-    .mcp-list li{margin:8px 0}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background: #ffffff;
+        line-height: 1.7;
+        color: #1a1a2e;
+    }
+    .back-link {
+        display: inline-block;
+        margin-bottom: 30px;
+        color: #0066cc;
+        text-decoration: none;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+    h1 {
+        font-size: 32px;
+        color: #1a1a2e;
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 12px;
+        margin-bottom: 15px;
+    }
+    .date {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    h2 {
+        font-size: 24px;
+        color: #1a1a2e;
+        margin: 35px 0 20px 0;
+        padding-left: 12px;
+        border-left: 4px solid #0066cc;
+    }
+    h3 {
+        font-size: 18px;
+        color: #333;
+        margin: 25px 0 12px 0;
+    }
+    ul, ol {
+        margin: 15px 0 15px 30px;
+    }
+    li {
+        margin: 8px 0;
+    }
+    pre {
+        background: #f4f4f4;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        overflow-x: auto;
+        margin: 20px 0;
+    }
+    code {
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        background: #f4f4f4;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 13px;
+        color: #d14;
+    }
+    pre code {
+        background: transparent;
+        padding: 0;
+        color: #333;
+        font-size: 13px;
+    }
+    .mcp-grid {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+    .mcp-grid ul {
+        columns: 2;
+        column-gap: 40px;
+        margin: 0;
+    }
+    .mcp-grid li {
+        break-inside: avoid;
+        margin: 10px 0;
+    }
+    .tip {
+        background: #e8f4fd;
+        border-left: 4px solid #0066cc;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+    .tip strong {
+        color: #0066cc;
+    }
+    hr {
+        margin: 40px 0;
+        border: none;
+        border-top: 1px solid #eee;
+    }
+    .btn {
+        display: inline-block;
+        background: #0066cc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-top: 20px;
+        margin-right: 15px;
+        font-weight: 500;
+    }
+    .btn:hover {
+        background: #0052a3;
+    }
+    .btn-github {
+        background: #24292e;
+    }
+    .btn-github:hover {
+        background: #1a1e22;
+    }
+    @media (max-width: 768px) {
+        body {
+            padding: 20px 15px;
+        }
+        h1 {
+            font-size: 26px;
+        }
+        h2 {
+            font-size: 20px;
+        }
+        .mcp-grid ul {
+            columns: 1;
+        }
+        pre {
+            font-size: 11px;
+            padding: 12px;
+        }
+        code {
+            font-size: 11px;
+        }
+    }
 </style>
 </head>
 <body>
 <a href="../index.html" class="back-link">← 返回首页</a>
+
 <h1>🔧 从零搭建12个MCP服务</h1>
-<div class="date">2026-05-08 | 阅读时间：8分钟 | 难度：中高级</div>
+<div class="date">📅 2026-05-08 | ⏱️ 阅读时间：约8分钟 | 📊 难度：中高级</div>
 
 <h2>📖 什么是MCP？</h2>
-<p>MCP（Model Context Protocol）是Anthropic推出的AI工具调用协议，让Claude Code等AI能够与MATLAB、Python、Simulink等工具协同工作。</p>
+<p><b>MCP（Model Context Protocol）</b> 是 Anthropic 推出的 AI 工具调用协议，让 Claude Code 等 AI 能够与 MATLAB、Python、Simulink 等工具协同工作，实现自动化工作流。</p>
+
+<div class="tip">
+    <strong>💡 核心理念：</strong> 一次配置，所有 AI 工具都能调用你的软件生态。
+</div>
 
 <h2>💻 环境准备</h2>
 <pre><code># 检查版本
@@ -38,25 +179,25 @@ npm install -g @anthropic-ai/claude-code
 pip install mcp httpx</code></pre>
 
 <h2>📋 12个MCP服务清单</h2>
-<div class="mcp-list">
-<ul>
-    <li><strong>MATLAB MCP</strong> - 脚本执行、参数调优</li>
-    <li><strong>Python MCP</strong> - 科学计算、绘图</li>
-    <li><strong>Simulink MCP</strong> - 模型创建、仿真</li>
-    <li><strong>LaTeX MCP</strong> - 公式渲染、论文</li>
-    <li><strong>Git & Doc MCP</strong> - 实验记录</li>
-    <li><strong>Jupyter MCP</strong> - Notebook生成</li>
-    <li><strong>RAG MCP</strong> - 知识检索</li>
-    <li><strong>MLflow MCP</strong> - 实验追踪</li>
-    <li><strong>ROS2 MCP</strong> - 机器人接口</li>
-    <li><strong>DAQ MCP</strong> - 数据采集</li>
-    <li><strong>HIL MCP</strong> - 硬件在环</li>
-    <li><strong>Overleaf MCP</strong> - 在线协作</li>
-</ul>
+<div class="mcp-grid">
+    <ul>
+        <li><strong>🔴 MATLAB MCP</strong> - 脚本执行、参数调优</li>
+        <li><strong>🐍 Python MCP</strong> - 科学计算、绘图</li>
+        <li><strong>📊 Simulink MCP</strong> - 模型创建、仿真</li>
+        <li><strong>📝 LaTeX MCP</strong> - 公式渲染、论文</li>
+        <li><strong>🔧 Git & Doc MCP</strong> - 实验记录</li>
+        <li><strong>📓 Jupyter MCP</strong> - Notebook生成</li>
+        <li><strong>📚 RAG MCP</strong> - 知识检索</li>
+        <li><strong>📈 MLflow MCP</strong> - 实验追踪</li>
+        <li><strong>🤖 ROS2 MCP</strong> - 机器人接口</li>
+        <li><strong>📊 DAQ MCP</strong> - 数据采集</li>
+        <li><strong>⚙️ HIL MCP</strong> - 硬件在环</li>
+        <li><strong>🌐 Overleaf MCP</strong> - 在线协作</li>
+    </ul>
 </div>
 
 <h2>⚙️ 配置文件示例</h2>
-<p><code>mcp_servers.json</code>：</p>
+<p><code style="background:#f4f4f4">mcp_servers.json</code>：</p>
 <pre><code>{
   "mcpServers": {
     "matlab": {
@@ -73,18 +214,24 @@ pip install mcp httpx</code></pre>
 }</code></pre>
 
 <h2>✅ 验证MCP是否工作</h2>
-<p>在Claude Code中输入：</p>
+<p>启动 Claude Code 后，输入以下命令：</p>
 <pre><code>/mcp                    # 查看所有MCP服务
 @matlab disp('hello')   # 测试MATLAB
-@python-sci 计算1+1     # 测试Python</code></pre>
+@python-sci 1+1         # 测试Python</code></pre>
 
 <h2>🐛 常见问题</h2>
 <ul>
-    <li><strong>MATLAB命令找不到</strong>：将MATLAB路径添加到系统PATH</li>
-    <li><strong>Python模块缺失</strong>：pip install mcp httpx</li>
-    <li><strong>连接失败</strong>：检查mcp_servers.json中的路径</li>
+    <li><b>MATLAB命令找不到</b> → 将MATLAB路径添加到系统 PATH</li>
+    <li><b>Python模块缺失</b> → <code>pip install mcp httpx</code></li>
+    <li><b>连接失败</b> → 检查 <code>mcp_servers.json</code> 中的路径是否正确</li>
 </ul>
 
-<p><a href="../quadrotor-project.html">← 返回项目详情</a> | <a href="https://github.com/ycx666994/quadrotor-cluster-control" target="_blank">📦 GitHub仓库</a></p>
+<hr>
+
+<p>
+    <a href="../quadrotor-project.html" class="btn">📖 返回项目详情</a>
+    <a href="https://github.com/ycx666994/quadrotor-cluster-control" class="btn btn-github" target="_blank">📦 GitHub仓库</a>
+</p>
+
 </body>
 </html>
