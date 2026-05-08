@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>四旋翼无人机建模与仿真</title>
+<style>
+    body{max-width:800px;margin:0 auto;padding:20px;font-family:'Segoe UI',Arial;line-height:1.6}
+    pre{background:#2d2d2d;color:#f8f8f2;padding:15px;border-radius:8px;overflow-x:auto}
+    code{background:#f0f0f0;padding:2px 5px;border-radius:4px;font-family:Consolas}
+    table{border-collapse:collapse;width:100%;margin:20px 0}
+    th,td{border:1px solid #ddd;padding:8px;text-align:left}
+    th{background:#3498db;color:white}
+    h1{color:#2c3e50}
+    h2{color:#34495e;border-left:4px solid #3498db;padding-left:15px}
+</style>
+</head>
+<body>
+<a href="../index.html">← 返回首页</a>
+<h1>🚁 四旋翼无人机建模与仿真</h1>
+<p><strong>2026-05-08</strong> | 阅读时间：6分钟 | 难度：中高级</p>
+
+<h2>四旋翼无人机动力学模型</h2>
+<p>四旋翼无人机是一个6自由度（6DOF）系统，包含3个位置自由度（x,y,z）和3个姿态自由度（φ,θ,ψ）。</p>
+
+<h3>物理参数</h3>
+<table>
+    <tr><th>参数</th><th>符号</th><th>数值</th><th>单位</th></tr>
+    <tr><td>质量</td><td>m</td><td>1.5</td><td>kg</td></tr>
+    <tr><td>臂长</td><td>L</td><td>0.25</td><td>m</td></tr>
+    <tr><td>惯性矩 X</td><td>Ix</td><td>0.0023</td><td>kg·m²</td></tr>
+    <tr><td>惯性矩 Y</td><td>Iy</td><td>0.0023</td><td>kg·m²</td></tr>
+    <tr><td>惯性矩 Z</td><td>Iz</td><td>0.0040</td><td>kg·m²</td></tr>
+</table>
+
+<h3>动力学方程</h3>
+<pre><code>ddot_x = (cosφ sinθ cosψ + sinφ sinψ) * F_total / m
+ddot_y = (cosφ sinθ sinψ - sinφ cosψ) * F_total / m
+ddot_z = (cosφ cosθ) * F_total / m - g
+
+ddot_φ = (Iy - Iz)/Ix * dot_θ * dot_ψ + τ_φ/Ix
+ddot_θ = (Iz - Ix)/Iy * dot_φ * dot_ψ + τ_θ/Iy
+ddot_ψ = (Ix - Iy)/Iz * dot_φ * dot_θ + τ_ψ/Iz</code></pre>
+
+<h2>ADRC控制器设计</h2>
+<p>ADRC（自抗扰控制）由三部分组成：</p>
+<ul>
+    <li><strong>跟踪微分器(TD)</strong> - 安排过渡过程</li>
+    <li><strong>扩张状态观测器(ESO)</strong> - 估计总扰动</li>
+    <li><strong>非线性状态误差反馈(NLSEF)</strong> - 计算控制量</li>
+</ul>
+
+<h3>ESO核心代码</h3>
+<pre><code>function u = adrc_control(y, y_ref, dt)
+    persistent z1 z2 z3
+    % 观测器误差
+    e = z1 - y;
+    % 状态更新
+    z1 = z1 + dt * (z2 - beta01 * e);
+    z2 = z2 + dt * (z3 - beta02 * fal(e,0.5,delta) + b0 * u);
+    z3 = z3 + dt * (-beta03 * fal(e,0.25,delta));
+    % 控制律
+    u = (k1*(y_ref - z1) - k2*z2 - z3) / b0;
+end</code></pre>
+
+<h2>仿真结果</h2>
+<ul>
+    <li>超调量：<strong>0.04%</strong></li>
+    <li>稳态误差：<strong>0.0001m</strong></li>
+    <li>调节时间：<strong>0.645s</strong></li>
+</ul>
+
+<h2>完整代码</h2>
+<p>查看GitHub仓库获取完整MATLAB代码：</p>
+<pre><code>cd scripts
+run quadrotor_adrc_v2.m</code></pre>
+
+<p><a href="../quadrotor-project.html">← 返回项目详情</a> | <a href="https://github.com/ycx666994/quadrotor-cluster-control">GitHub仓库</a></p>
+</body>
+</html>
